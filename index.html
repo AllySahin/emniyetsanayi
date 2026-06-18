@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ERBATECH - Kurumsal ERP Portalı</title>
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <!-- html2pdf.js CDN for PDF generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+  <div class="app-container vertical-layout">
+
+    <!-- Global Sticky Top Bar -->
+    <header class="top-bar-global">
+      <div class="top-bar-brand">
+        <img id="app-logo" src="logo.jpeg" alt="ERBATECH"
+          onerror="this.src='https://placehold.co/150x50/1e293b/ffffff?text=ERBATECH'">
+        <div class="brand-title">
+          <h2>ERBATECH</h2>
+          <span>Kurumsal ERP Sistemi</span>
+        </div>
+      </div>
+
+      <div class="top-bar-center">
+        <span id="active-module-indicator" class="active-module-tag hidden">Satış & Pazarlama</span>
+        <button id="btn-back-to-portal" class="btn btn-secondary btn-sm hidden">
+          <i class="fa-solid fa-circle-arrow-left"></i> Ana Menü
+        </button>
+      </div>
+
+      <div class="top-bar-actions">
+        <div class="user-info">
+          <i class="fa-solid fa-circle-user"></i>
+          <div class="user-meta">
+            <span class="user-name">Ali Yılmaz</span>
+            <span class="user-role">Sistem Yöneticisi</span>
+          </div>
+        </div>
+        <button id="theme-toggle" class="theme-btn-global" title="Tema Değiştir">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Container -->
+    <main class="workspace-main">
+
+      <!-- VIEW 1: Main ERP Portal Landing Page -->
+      <section id="tab-portal" class="tab-view active">
+        <div class="portal-hero">
+          <h1>ERBATECH ERP Portalına Hoş Geldiniz</h1>
+          <p>Yönetmek istediğiniz kurumsal iş birimini seçerek çalışmaya başlayın.</p>
+        </div>
+
+        <div class="portal-grid">
+          <!-- Card 1: Üretim -->
+          <div class="portal-card" data-module="module-production"
+            style="--card-gradient: linear-gradient(135deg, #0d9488 0%, #115e59 100%);">
+            <div class="card-icon"><i class="fa-solid fa-industry"></i></div>
+            <h3>Üretim</h3>
+          </div>
+
+          <!-- Card 2: Satış & Pazarlama -->
+          <div class="portal-card" data-module="module-sales"
+            style="--card-gradient: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);">
+            <div class="card-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            <h3>Satış & Pazarlama</h3>
+          </div>
+
+          <!-- Card 3: Satınalma -->
+          <div class="portal-card" data-module="module-purchasing"
+            style="--card-gradient: linear-gradient(135deg, #ea580c 0%, #9a3412 100%);">
+            <div class="card-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+            <h3>Satınalma</h3>
+          </div>
+
+          <!-- Card 4: Takımhane -->
+          <div class="portal-card" data-module="module-toolroom"
+            style="--card-gradient: linear-gradient(135deg, #0284c7 0%, #075985 100%);">
+            <div class="card-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+            <h3>Takımhane</h3>
+          </div>
+
+          <!-- Card 5: Depo -->
+          <div class="portal-card" data-module="module-warehouse"
+            style="--card-gradient: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);">
+            <div class="card-icon"><i class="fa-solid fa-warehouse"></i></div>
+            <h3>Depo</h3>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE: Sales & Marketing (Satış & Pazarlama - Old Quotation features) -->
+      <section id="module-sales" class="tab-view module-workspace-view">
+        <!-- Horizontal Sub Navigation Tab Bar -->
+        <nav class="module-sub-nav">
+          <button class="sub-nav-item active" data-subtab="tab-dashboard">
+            <i class="fa-solid fa-chart-pie"></i> Panel & Geçmiş
+          </button>
+          <button class="sub-nav-item" data-subtab="tab-create-quote">
+            <i class="fa-solid fa-file-invoice-dollar"></i> Teklif Hazırla
+          </button>
+          <button class="sub-nav-item" data-subtab="tab-cariler">
+            <i class="fa-solid fa-address-book"></i> Cari Kartlar
+          </button>
+          <button class="sub-nav-item" data-subtab="tab-urunler">
+            <i class="fa-solid fa-boxes-stacked"></i> Ürün Kartları
+          </button>
+          <button class="sub-nav-item" data-subtab="tab-settings">
+            <i class="fa-solid fa-gears"></i> Ayarlar
+          </button>
+        </nav>
+
+        <!-- Sub Tabs Content Container -->
+        <div class="sub-view-container mt-4">
+
+          <!-- Sub-Tab 1: Dashboard & History -->
+          <div id="tab-dashboard" class="subtab-content active">
+            <!-- Summary Stats -->
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon quote-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                <div class="stat-info">
+                  <h3>Toplam Teklif</h3>
+                  <p id="stat-total-quotes">0 Adet</p>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon volume-icon"><i class="fa-solid fa-coins"></i></div>
+                <div class="stat-info">
+                  <h3>Toplam Tutar (TRY)</h3>
+                  <p id="stat-total-volume">0.00 ₺</p>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon cari-icon"><i class="fa-solid fa-users"></i></div>
+                <div class="stat-info">
+                  <h3>Kayıtlı Cari</h3>
+                  <p id="stat-total-cariler">0 Firma</p>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon urun-icon"><i class="fa-solid fa-box-open"></i></div>
+                <div class="stat-info">
+                  <h3>Kayıtlı Ürün</h3>
+                  <p id="stat-total-urunler">0 Çeşit</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- History & Filters -->
+            <div class="content-card">
+              <div class="card-header">
+                <h2>Teklif Geçmişi</h2>
+                <div class="filters">
+                  <div class="filter-group">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="filter-search" placeholder="Cari veya Teklif No Ara...">
+                  </div>
+                  <div class="filter-group">
+                    <select id="filter-status">
+                      <option value="">Tüm Durumlar</option>
+                      <option value="Beklemede">Beklemede</option>
+                      <option value="Onaylandı">Onaylandı</option>
+                      <option value="Reddedildi">Reddedildi</option>
+                    </select>
+                  </div>
+                  <div class="filter-group">
+                    <input type="date" id="filter-start-date" placeholder="Başlangıç">
+                    <input type="date" id="filter-end-date" placeholder="Bitiş">
+                  </div>
+                  <button id="clear-filters" class="btn btn-secondary btn-icon-only" title="Filtreleri Temizle">
+                    <i class="fa-solid fa-filter-circle-xmark"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table" id="quotes-table">
+                  <thead>
+                    <tr>
+                      <th>Teklif No</th>
+                      <th>Cari Ünvanı</th>
+                      <th>Teklif Tarihi</th>
+                      <th>Geçerlilik T.</th>
+                      <th>Toplam Tutar</th>
+                      <th>Durum</th>
+                      <th class="actions-col">İşlemler</th>
+                    </tr>
+                  </thead>
+                  <tbody id="quotes-list">
+                    <!-- Dynamic rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub-Tab 2: Quote Creator -->
+          <div id="tab-create-quote" class="subtab-content">
+            <form id="quote-form" class="grid-form">
+              <!-- Left Info Panel -->
+              <div class="form-column">
+                <div class="content-card">
+                  <div class="card-header">
+                    <h2>Müşteri (Cari) Bilgileri</h2>
+                    <button type="button" class="btn btn-sm btn-primary" id="btn-quick-add-cari">
+                      <i class="fa-solid fa-plus"></i> Hızlı Cari Ekle
+                    </button>
+                  </div>
+                  <div class="form-group">
+                    <label for="quote-cari-select">Cari Kartı Seçiniz <span class="required">*</span></label>
+                    <select id="quote-cari-select" required>
+                      <option value="">-- Cari Seçiniz --</option>
+                    </select>
+                  </div>
+                  <div class="cari-quick-preview" id="cari-preview-box">
+                    <p class="placeholder-text"><i class="fa-solid fa-circle-info"></i> Lütfen bir cari kart seçin.</p>
+                  </div>
+                </div>
+
+                <div class="content-card mt-4">
+                  <div class="card-header">
+                    <h2>Teklif Detayları</h2>
+                  </div>
+                  <div class="form-grid-2">
+                    <div class="form-group">
+                      <label for="quote-number">Teklif Numarası</label>
+                      <input type="text" id="quote-number" placeholder="Örn: TEK-2026-0001">
+                    </div>
+                    <div class="form-group">
+                      <label for="quote-currency">Para Birimi</label>
+                      <select id="quote-currency">
+                        <option value="TRY">₺ (Türk Lirası)</option>
+                        <option value="USD">$ (Dolar)</option>
+                        <option value="EUR">€ (Euro)</option>
+                        <option value="GBP">£ (Sterlin)</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="quote-date">Teklif Tarihi <span class="required">*</span></label>
+                      <input type="date" id="quote-date" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="quote-valid-until">Geçerlilik Tarihi <span class="required">*</span></label>
+                      <input type="date" id="quote-valid-until" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="quote-vat-rate">KDV Oranı (%)</label>
+                      <input type="number" id="quote-vat-rate" min="0" max="100" value="20">
+                    </div>
+                    <div class="form-group">
+                      <label for="quote-global-discount">Genel İskonto (%)</label>
+                      <input type="number" id="quote-global-discount" min="0" max="100" value="0">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Items Panel -->
+              <div class="form-column">
+                <div class="content-card items-card">
+                  <div class="card-header">
+                    <h2>Teklif Satırları (Ürün & Hizmetler)</h2>
+                    <div class="header-actions">
+                      <button type="button" class="btn btn-sm btn-primary" id="btn-quick-add-urun">
+                        <i class="fa-solid fa-plus"></i> Hızlı Ürün Ekle
+                      </button>
+                      <button type="button" class="btn btn-sm btn-secondary" id="btn-add-item-row">
+                        <i class="fa-solid fa-plus-circle"></i> Satır Ekle
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="items-table-container">
+                    <table class="items-table" id="quote-items-table">
+                      <thead>
+                        <tr>
+                          <th style="width: 40%;">Ürün/Hizmet <span class="required">*</span></th>
+                          <th style="width: 12%;">Birim Fiyat</th>
+                          <th style="width: 10%;">Miktar</th>
+                          <th style="width: 8%;">Birim</th>
+                          <th style="width: 10%;">İskonto %</th>
+                          <th style="width: 15%;">Toplam</th>
+                          <th style="width: 5%;"></th>
+                        </tr>
+                      </thead>
+                      <tbody id="quote-items-list">
+                        <!-- Product rows will be created dynamically -->
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <!-- Notes & Terms -->
+                  <div class="form-group mt-4">
+                    <label for="quote-notes">Teklif Notları ve Ödeme Koşulları</label>
+                    <textarea id="quote-notes" rows="4"
+                      placeholder="Teklif ödeme koşulları, vade, teslim yeri vb. detayları giriniz..."></textarea>
+                  </div>
+
+                  <!-- Calculation Summary -->
+                  <div class="totals-panel">
+                    <div class="total-row">
+                      <span>Ara Toplam:</span>
+                      <span id="summary-subtotal">0.00 ₺</span>
+                    </div>
+                    <div class="total-row">
+                      <span>Satır İndirimleri:</span>
+                      <span id="summary-item-discount">0.00 ₺</span>
+                    </div>
+                    <div class="total-row">
+                      <span>Genel İskonto (<span id="summary-global-discount-rate">0</span>%):</span>
+                      <span id="summary-global-discount">0.00 ₺</span>
+                    </div>
+                    <div class="total-row">
+                      <span>KDV Toplamı (<span id="summary-vat-rate">20</span>%):</span>
+                      <span id="summary-vat-total">0.00 ₺</span>
+                    </div>
+                    <hr>
+                    <div class="total-row grand-total-row">
+                      <span>Genel Toplam:</span>
+                      <span id="summary-grand-total">0.00 ₺</span>
+                    </div>
+                  </div>
+
+                  <div class="form-actions mt-4">
+                    <button type="reset" class="btn btn-secondary"><i class="fa-solid fa-rotate-left"></i> Formu
+                      Temizle</button>
+                    <button type="submit" class="btn btn-primary btn-large"><i class="fa-solid fa-floppy-disk"></i>
+                      Teklifi Kaydet & PDF İndir</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Sub-Tab 3: Cari Kartlar -->
+          <div id="tab-cariler" class="subtab-content">
+            <div class="grid-layout-1-3">
+              <!-- Add Cari Form -->
+              <div class="content-card">
+                <div class="card-header">
+                  <h2 id="cari-form-title">Yeni Cari Kart Oluştur</h2>
+                </div>
+                <form id="cari-form">
+                  <input type="hidden" id="cari-id">
+                  <div class="form-group">
+                    <label for="cari-company-name">Firma Ünvanı / Müşteri Adı <span class="required">*</span></label>
+                    <input type="text" id="cari-company-name" required placeholder="Örn: ABC İnşaat San. Tic. A.Ş.">
+                  </div>
+                  <div class="form-group">
+                    <label for="cari-authorized-person">Yetkili Kişi</label>
+                    <input type="text" id="cari-authorized-person" placeholder="Örn: Ahmet Yılmaz">
+                  </div>
+                  <div class="form-grid-2">
+                    <div class="form-group">
+                      <label for="cari-email">E-posta Adresi</label>
+                      <input type="email" id="cari-email" placeholder="example@company.com">
+                    </div>
+                    <div class="form-group">
+                      <label for="cari-phone">Telefon Numarası</label>
+                      <input type="tel" id="cari-phone" placeholder="0555 123 4567">
+                    </div>
+                    <div class="form-group">
+                      <label for="cari-tax-office">Vergi Dairesi</label>
+                      <input type="text" id="cari-tax-office" placeholder="Esenyurt V.D.">
+                    </div>
+                    <div class="form-group">
+                      <label for="cari-tax-number">Vergi / T.C. Kimlik No</label>
+                      <input type="text" id="cari-tax-number" placeholder="1234567890">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="cari-address">Adres</label>
+                    <textarea id="cari-address" rows="3" placeholder="Açık adres yazınız..."></textarea>
+                  </div>
+                  <div class="form-actions">
+                    <button type="button" id="btn-cancel-cari-edit" class="btn btn-secondary hidden">Vazgeç</button>
+                    <button type="submit" class="btn btn-primary w-full"><i class="fa-solid fa-floppy-disk"></i> Cari
+                      Kaydet</button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Cari List -->
+              <div class="content-card">
+                <div class="card-header">
+                  <h2>Cari Hesap Kartları</h2>
+                  <div class="filters">
+                    <div class="filter-group">
+                      <i class="fa-solid fa-magnifying-glass"></i>
+                      <input type="text" id="cari-search" placeholder="Cari Kartlarda Ara...">
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="data-table" id="cariler-table">
+                    <thead>
+                      <tr>
+                        <th>Firma Ünvanı</th>
+                        <th>Yetkili</th>
+                        <th>Telefon</th>
+                        <th>Vergi No</th>
+                        <th class="actions-col">İşlemler</th>
+                      </tr>
+                    </thead>
+                    <tbody id="cariler-list">
+                      <!-- Dynamic client list -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub-Tab 4: Ürün Kartları -->
+          <div id="tab-urunler" class="subtab-content">
+            <div class="grid-layout-1-3">
+              <!-- Add Product Form -->
+              <div class="content-card">
+                <div class="card-header">
+                  <h2 id="urun-form-title">Yeni Ürün Kartı Oluştur</h2>
+                </div>
+                <form id="urun-form">
+                  <input type="hidden" id="urun-id">
+                  <div class="form-group">
+                    <label for="urun-code">Ürün / Hizmet Kodu <span class="required">*</span></label>
+                    <input type="text" id="urun-code" required placeholder="Örn: URN-001">
+                  </div>
+                  <div class="form-group">
+                    <label for="urun-name">Ürün / Hizmet Adı <span class="required">*</span></label>
+                    <input type="text" id="urun-name" required placeholder="Örn: 20mm Çelik Somun">
+                  </div>
+                  <div class="form-group">
+                    <label for="urun-category">Kategori / Sınıf</label>
+                    <input type="text" id="urun-category" placeholder="Örn: Metal Parçalar">
+                  </div>
+                  <div class="form-grid-3">
+                    <div class="form-group col-span-2">
+                      <label for="urun-price">Birim Fiyatı <span class="required">*</span></label>
+                      <input type="number" id="urun-price" step="0.01" min="0" required placeholder="0.00">
+                    </div>
+                    <div class="form-group">
+                      <label for="urun-currency">P.B.</label>
+                      <select id="urun-currency">
+                        <option value="TRY">TRY</option>
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="urun-unit">Ölçü Birimi <span class="required">*</span></label>
+                    <select id="urun-unit" required>
+                      <option value="Adet">Adet</option>
+                      <option value="Kg">Kg</option>
+                      <option value="Metre">Metre</option>
+                      <option value="Litre">Litre</option>
+                      <option value="Paket">Paket</option>
+                      <option value="Saat">Saat (Hizmet)</option>
+                      <option value="Gün">Gün (Hizmet)</option>
+                    </select>
+                  </div>
+                  <div class="form-actions">
+                    <button type="button" id="btn-cancel-urun-edit" class="btn btn-secondary hidden">Vazgeç</button>
+                    <button type="submit" class="btn btn-primary w-full"><i class="fa-solid fa-floppy-disk"></i> Ürün
+                      Kaydet</button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Product List -->
+              <div class="content-card">
+                <div class="card-header">
+                  <h2>Ürün & Hizmet Kataloğu</h2>
+                  <div class="filters">
+                    <div class="filter-group">
+                      <i class="fa-solid fa-magnifying-glass"></i>
+                      <input type="text" id="urun-search" placeholder="Ürünlerde Ara...">
+                    </div>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="data-table" id="urunler-table">
+                    <thead>
+                      <tr>
+                        <th>Kod</th>
+                        <th>Ürün Adı</th>
+                        <th>Kategori</th>
+                        <th>Birim Fiyat</th>
+                        <th>Birim</th>
+                        <th class="actions-col">İşlemler</th>
+                      </tr>
+                    </thead>
+                    <tbody id="urunler-list">
+                      <!-- Dynamic product list -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub-Tab 5: Settings -->
+          <div id="tab-settings" class="subtab-content">
+            <div class="grid-form">
+              <div class="form-column">
+                <!-- Company Settings -->
+                <div class="content-card">
+                  <div class="card-header">
+                    <h2>Firma Profil Ayarları (Antet Bilgileri)</h2>
+                  </div>
+                  <form id="settings-form">
+                    <div class="form-group">
+                      <label for="settings-company-name">Resmi Firma Adı</label>
+                      <input type="text" id="settings-company-name"
+                        placeholder="ERBATECH DEFANCE & AEROSPACE MANUFACTURING">
+                    </div>
+                    <div class="form-grid-2">
+                      <div class="form-group">
+                        <label for="settings-phone">Telefon</label>
+                        <input type="tel" id="settings-phone" placeholder="+90 266 123 45 67">
+                      </div>
+                      <div class="form-group">
+                        <label for="settings-email">E-posta</label>
+                        <input type="email" id="settings-email" placeholder="info@erbatech.com">
+                      </div>
+                      <div class="form-group">
+                        <label for="settings-website">Web Sitesi</label>
+                        <input type="text" id="settings-website" placeholder="www.erbatech.com">
+                      </div>
+                      <div class="form-group">
+                        <label for="settings-tax-office">Vergi Dairesi</label>
+                        <input type="text" id="settings-tax-office" placeholder="Balıkesir V.D.">
+                      </div>
+                      <div class="form-group">
+                        <label for="settings-tax-number">Vergi Numarası</label>
+                        <input type="text" id="settings-tax-number" placeholder="1234567890">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="settings-address">Firma Adresi</label>
+                      <textarea id="settings-address" rows="3" placeholder="Firma açık adresi..."></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="settings-bank-details">Banka / IBAN Bilgileri</label>
+                      <textarea id="settings-bank-details" rows="3"
+                        placeholder="Örn: Garanti BBVA TR92 0006..."></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="settings-default-notes">Varsayılan Teklif Notları / Koşulları</label>
+                      <textarea id="settings-default-notes" rows="4"
+                        placeholder="Teklif formunda otomatik çıkacak notlar..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                      <button type="submit" class="btn btn-primary"><i class="fa-solid fa-circle-check"></i> Ayarları
+                        Kaydet</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="form-column">
+                <!-- Logo Upload & Display -->
+                <div class="content-card">
+                  <div class="card-header">
+                    <h2>Firma Logosu</h2>
+                  </div>
+                  <div class="logo-preview-container">
+                    <img id="settings-logo-preview" src="logo.jpeg" alt="Logo Önizleme"
+                      onerror="this.src='https://placehold.co/200x70/1e293b/ffffff?text=ERBATECH'">
+                    <div class="mt-4">
+                      <label class="btn btn-secondary w-full text-center cursor-pointer">
+                        <i class="fa-solid fa-upload"></i> Yeni Logo Yükle
+                        <input type="file" id="logo-file-input" accept="image/*" class="hidden">
+                      </label>
+                      <p class="help-text text-center mt-2">Önerilen boyut: 300x100px. Antetli kağıt ve PDF'te bu logo
+                        kullanılacaktır.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Database Backup & Restore -->
+                <div class="content-card mt-4">
+                  <div class="card-header">
+                    <h2>Veri Yedekleme ve Kurtarma</h2>
+                  </div>
+                  <p class="description-text">
+                    Tüm teklifleri, carileri, ürünleri ve ayarları yedekleyebilirsiniz. Tarayıcı önbelleği silindiğinde
+                    veri kaybı yaşamamak için düzenli olarak yedek almanız önerilir.
+                  </p>
+                  <div class="backup-actions">
+                    <button id="btn-export-backup" class="btn btn-secondary w-full">
+                      <i class="fa-solid fa-download"></i> Tüm Verileri Yedekle (JSON)
+                    </button>
+                    <label class="btn btn-outline w-full text-center cursor-pointer mt-2">
+                      <i class="fa-solid fa-upload"></i> Yedekten Veri Yükle (JSON)
+                      <input type="file" id="import-backup-file" accept=".json" class="hidden">
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- MODULE: Production Mockup (Üretim) -->
+      <section id="module-production" class="tab-view module-workspace-view">
+        <div class="content-card">
+          <div class="card-header">
+            <h2>Üretim Planlama & İzleme Paneli</h2>
+            <span class="badge badge-approved"><i class="fa-solid fa-circle-check"></i> Aktif Çalışıyor</span>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon quote-icon" style="background-color: rgba(13, 148, 136, 0.1); color: #0d9488;"><i
+                  class="fa-solid fa-list-check"></i></div>
+              <div class="stat-info">
+                <h3>Aktif İş Emri</h3>
+                <p>12 Adet</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon volume-icon" style="background-color: rgba(16, 185, 129, 0.1); color: #10b981;"><i
+                  class="fa-solid fa-gauge-high"></i></div>
+              <div class="stat-info">
+                <h3>Genel OEE Oranı</h3>
+                <p>%84.2</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon cari-icon" style="background-color: rgba(239, 68, 68, 0.1); color: #ef4444;"><i
+                  class="fa-solid fa-screwdriver-wrench"></i></div>
+              <div class="stat-info">
+                <h3>Arızalı Makine</h3>
+                <p>1 Adet (CNC-04)</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon urun-icon" style="background-color: rgba(139, 92, 246, 0.1); color: #8b5cf6;"><i
+                  class="fa-solid fa-user-group"></i></div>
+              <div class="stat-info">
+                <h3>Aktif Operatör</h3>
+                <p>18 Personel</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-form mt-4">
+            <div class="content-card">
+              <h3>Makine ve İstasyon Durumları</h3>
+              <div class="table-responsive mt-2">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Makine Adı</th>
+                      <th>İstasyon</th>
+                      <th>Durum</th>
+                      <th>Verimlilik</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>CNC Torna - Haas ST20</strong></td>
+                      <td>Talaşlı İmalat</td>
+                      <td><span class="badge badge-approved">Çalışıyor</span></td>
+                      <td><strong>%92</strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>CNC Freze - Mazak</strong></td>
+                      <td>Talaşlı İmalat</td>
+                      <td><span class="badge badge-approved">Çalışıyor</span></td>
+                      <td><strong>%88</strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Kaynak Robotu - Kuka</strong></td>
+                      <td>Montaj & Kaynak</td>
+                      <td><span class="badge badge-pending">Hazırlanıyor</span></td>
+                      <td><strong>%75</strong></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Pres Makinesi - 200 Ton</strong></td>
+                      <td>Şekillendirme</td>
+                      <td><span class="badge badge-rejected">Arıza/Bakım</span></td>
+                      <td><strong>%0</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="content-card">
+              <h3>Günlük Üretim Hacmi</h3>
+              <div class="mock-chart-container"
+                style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:200px; border: 1px dashed var(--border-color); border-radius: var(--radius-md); background: var(--bg-hover);">
+                <i class="fa-solid fa-chart-simple" style="font-size: 3rem; color: #0d9488; margin-bottom: 0.5rem;"></i>
+                <p style="font-weight: 500;">Canlı üretim akış grafiği aktif.</p>
+                <span class="help-text">Üretim MES entegrasyonu sağlandığında anlık veriler burada
+                  listelenecektir.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE: Purchasing Mockup (Satınalma) -->
+      <section id="module-purchasing" class="tab-view module-workspace-view">
+        <div class="content-card">
+          <div class="card-header">
+            <h2>Satınalma & Tedarik Yönetim Paneli</h2>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon quote-icon" style="background-color: rgba(234, 88, 12, 0.1); color: #ea580c;"><i
+                  class="fa-solid fa-clipboard-question"></i></div>
+              <div class="stat-info">
+                <h3>Bekleyen Talep</h3>
+                <p>8 Talep</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon volume-icon" style="background-color: rgba(59, 130, 246, 0.1); color: #3b82f6;"><i
+                  class="fa-solid fa-truck-ramp-box"></i></div>
+              <div class="stat-info">
+                <h3>Yoldaki Sipariş</h3>
+                <p>3 Gönderi</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon cari-icon" style="background-color: rgba(16, 185, 129, 0.1); color: #10b981;"><i
+                  class="fa-solid fa-handshake"></i></div>
+              <div class="stat-info">
+                <h3>Tedarikçi Firmalar</h3>
+                <p>38 Firma</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon urun-icon" style="background-color: rgba(139, 92, 246, 0.1); color: #8b5cf6;"><i
+                  class="fa-solid fa-sack-dollar"></i></div>
+              <div class="stat-info">
+                <h3>Aylık Alım Hacmi</h3>
+                <p>420.500 ₺</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-form mt-4">
+            <div class="content-card">
+              <h3>Onay Bekleyen Satınalma Talepleri</h3>
+              <div class="table-responsive mt-2">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Talep No</th>
+                      <th>Ürün/Hizmet</th>
+                      <th>Birim</th>
+                      <th>Miktar</th>
+                      <th>Talep Eden</th>
+                      <th>Durum</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>SAT-041</strong></td>
+                      <td>M20 Somun ve Pul Grubu</td>
+                      <td>Koli</td>
+                      <td>10</td>
+                      <td>Mehmet (Montaj)</td>
+                      <td><span class="badge badge-pending">Onay Bekliyor</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>SAT-042</strong></td>
+                      <td>Argon Gazı Dolumu</td>
+                      <td>Tüp</td>
+                      <td>5</td>
+                      <td>Ayhan (Kaynak)</td>
+                      <td><span class="badge badge-approved">Satın Alındı</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>SAT-043</strong></td>
+                      <td>50mm Çelik Çubuk L:3000</td>
+                      <td>Ton</td>
+                      <td>2.5</td>
+                      <td>Cem (Talaşlı İmalat)</td>
+                      <td><span class="badge badge-pending">Teklif Toplanıyor</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="content-card">
+              <h3>Tedarikçi Performansı</h3>
+              <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:0.5rem;">
+                <div>
+                  <div
+                    style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:600; margin-bottom: 2px;">
+                    <span>Çelik A.Ş. (Hammadde)</span>
+                    <span style="color:var(--success)">%96 (A Sınıfı)</span>
+                  </div>
+                  <div style="height:8px; background:var(--bg-hover); border-radius:4px; overflow:hidden;">
+                    <div style="width:96%; height:100%; background:var(--success);"></div>
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:600; margin-bottom: 2px;">
+                    <span>Yıldız Gaz Ticaret (Tesisat)</span>
+                    <span style="color:var(--success)">%88 (B Sınıfı)</span>
+                  </div>
+                  <div style="height:8px; background:var(--bg-hover); border-radius:4px; overflow:hidden;">
+                    <div style="width:88%; height:100%; background:var(--success);"></div>
+                  </div>
+                </div>
+                <div>
+                  <div
+                    style="display:flex; justify-content:space-between; font-size:0.85rem; font-weight:600; margin-bottom: 2px;">
+                    <span>Ege Hırdavat (Sarf Malzeme)</span>
+                    <span style="color:var(--warning)">%74 (C Sınıfı)</span>
+                  </div>
+                  <div style="height:8px; background:var(--bg-hover); border-radius:4px; overflow:hidden;">
+                    <div style="width:74%; height:100%; background:var(--warning);"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE: Toolroom Mockup (Takımhane) -->
+      <section id="module-toolroom" class="tab-view module-workspace-view">
+        <div class="content-card">
+          <div class="card-header">
+            <h2>Takımhane & Kalıp Zimmet Paneli</h2>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon quote-icon" style="background-color: rgba(2, 132, 199, 0.1); color: #0284c7;"><i
+                  class="fa-solid fa-toolbox"></i></div>
+              <div class="stat-info">
+                <h3>Kayıtlı Kalıp/Takım</h3>
+                <p>148 Çeşit</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon volume-icon" style="background-color: rgba(245, 158, 11, 0.1); color: #f59e0b;"><i
+                  class="fa-solid fa-user-tag"></i></div>
+              <div class="stat-info">
+                <h3>Zimmette Olan</h3>
+                <p>32 Takım</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon cari-icon" style="background-color: rgba(16, 185, 129, 0.1); color: #10b981;"><i
+                  class="fa-solid fa-clock-rotate-left"></i></div>
+              <div class="stat-info">
+                <h3>Günü Geciken</h3>
+                <p>0 Takım</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon urun-icon" style="background-color: rgba(239, 68, 68, 0.1); color: #ef4444;"><i
+                  class="fa-solid fa-triangle-exclamation"></i></div>
+              <div class="stat-info">
+                <h3>Kalibrasyon Gelen</h3>
+                <p>3 Ölçü Aleti</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-form mt-4">
+            <div class="content-card">
+              <h3>Aktif Ödünç / Zimmet Kayıtları</h3>
+              <div class="table-responsive mt-2">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Takım Kodu</th>
+                      <th>Takım Adı</th>
+                      <th>Zimmet Alan</th>
+                      <th>Verme Tarihi</th>
+                      <th>Beklenen İade</th>
+                      <th>Durum</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>TKM-089</strong></td>
+                      <td>Mitutoyo Mikrometre 0-25mm</td>
+                      <td>Ömer Karataş</td>
+                      <td>17.06.2026</td>
+                      <td>19.06.2026</td>
+                      <td><span class="badge badge-approved">Zimmette</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>TKM-102</strong></td>
+                      <td>Karbon Kalıp Çeliği Matrisi X</td>
+                      <td>Serkan Demir</td>
+                      <td>16.06.2026</td>
+                      <td>20.06.2026</td>
+                      <td><span class="badge badge-approved">Kullanımda</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>TKM-144</strong></td>
+                      <td>Kılavuz Çekme Seti M6-M24</td>
+                      <td>Ahmet Yılmaz</td>
+                      <td>18.06.2026</td>
+                      <td>18.06.2026</td>
+                      <td><span class="badge badge-pending">Bugün İade</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="content-card">
+              <h3>Hızlı İşlemler</h3>
+              <div style="display:flex; flex-direction:column; gap:0.5rem; margin-top:0.5rem;">
+                <button class="btn btn-secondary w-full text-left"
+                  onclick="alert('Zimmet Verme formu yakında eklenecektir.')"><i
+                    class="fa-solid fa-arrow-right-from-bracket"></i> Takım Zimmeti Ver</button>
+                <button class="btn btn-secondary w-full text-left"
+                  onclick="alert('Zimmet İade formu yakında eklenecektir.')"><i
+                    class="fa-solid fa-arrow-rotate-left"></i> Takım İade Al</button>
+                <button class="btn btn-secondary w-full text-left"
+                  onclick="alert('Kalibrasyon takip modülü yakında eklenecektir.')"><i
+                    class="fa-solid fa-compass-drafting"></i> Kalibrasyona Gönder</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODULE: Warehouse Mockup (Depo) -->
+      <section id="module-warehouse" class="tab-view module-workspace-view">
+        <div class="content-card">
+          <div class="card-header">
+            <h2>Depo & Stok Kart Takip Paneli</h2>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon quote-icon" style="background-color: rgba(245, 158, 11, 0.1); color: #f59e0b;"><i
+                  class="fa-solid fa-dolly"></i></div>
+              <div class="stat-info">
+                <h3>Toplam Stok Kalemi</h3>
+                <p>820 Çeşit</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon volume-icon" style="background-color: rgba(16, 185, 129, 0.1); color: #10b981;"><i
+                  class="fa-solid fa-chart-area"></i></div>
+              <div class="stat-info">
+                <h3>Depo Hacim Doluluğu</h3>
+                <p>%72.8</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon cari-icon" style="background-color: rgba(59, 130, 246, 0.1); color: #3b82f6;"><i
+                  class="fa-solid fa-arrows-left-right"></i></div>
+              <div class="stat-info">
+                <h3>Günlük Giriş/Çıkış</h3>
+                <p>18 Palet</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon urun-icon" style="background-color: rgba(239, 68, 68, 0.1); color: #ef4444;"><i
+                  class="fa-solid fa-circle-exclamation"></i></div>
+              <div class="stat-info">
+                <h3>Kritik Stok Uyarıları</h3>
+                <p>6 Malzeme</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid-form mt-4">
+            <div class="content-card">
+              <h3>Kritik Stok Seviyesi Altındaki Malzemeler</h3>
+              <div class="table-responsive mt-2">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Malzeme Kodu</th>
+                      <th>Açıklama</th>
+                      <th>Birim</th>
+                      <th>Kalan Stok</th>
+                      <th>Kritik Eşik</th>
+                      <th>Durum</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>RAW-098</strong></td>
+                      <td>Çelik Boru 108x4.5 Dikişsiz</td>
+                      <td>Metre</td>
+                      <td style="color: var(--danger); font-weight:700;">14</td>
+                      <td>50</td>
+                      <td><span class="badge badge-rejected">Kritik Limit</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>RAW-104</strong></td>
+                      <td>Kaynak Teli 1.2mm Gazaltı</td>
+                      <td>Kg</td>
+                      <td style="color: var(--danger); font-weight:700;">45</td>
+                      <td>100</td>
+                      <td><span class="badge badge-rejected">Kritik Limit</span></td>
+                    </tr>
+                    <tr>
+                      <td><strong>RAW-211</strong></td>
+                      <td>Karton Ambalaj Kutusu 50x50x50</td>
+                      <td>Adet</td>
+                      <td style="color: var(--warning); font-weight:700;">120</td>
+                      <td>150</td>
+                      <td><span class="badge badge-pending">Sınırda</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="content-card">
+              <h3>Hızlı Stok Arama</h3>
+              <div class="form-group mt-2">
+                <input type="text" placeholder="Stok Kodu veya Malzeme Adı Yazın..." style="padding: 0.85rem 1rem;">
+              </div>
+              <p class="help-text">Barkod / Karekod okuyucu entegrasyonu tamamlandığında okutulan kodlar anında sisteme
+                yansıtılacaktır.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Cari Detay / Profil Modal -->
+  <div class="modal" id="cari-detail-modal">
+    <div class="modal-content modal-large">
+      <div class="modal-header">
+        <h2 id="modal-cari-name">Cari Detay Kartı</h2>
+        <button class="modal-close" data-close="cari-detail-modal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="cari-info-box grid-2">
+          <div>
+            <p><strong>Yetkili:</strong> <span id="modal-cari-auth">-</span></p>
+            <p><strong>E-posta:</strong> <span id="modal-cari-email">-</span></p>
+            <p><strong>Telefon:</strong> <span id="modal-cari-phone">-</span></p>
+          </div>
+          <div>
+            <p><strong>Vergi Dairesi / No:</strong> <span id="modal-cari-tax">-</span></p>
+            <p><strong>Adres:</strong> <span id="modal-cari-address">-</span></p>
+            <p><strong>Toplam Ciro:</strong> <span id="modal-cari-turnover" class="highlight-text">0.00 ₺</span></p>
+          </div>
+        </div>
+        <hr class="my-4">
+        <h3>Cariye Ait Geçmiş Teklifler</h3>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Teklif No</th>
+                <th>Teklif Tarihi</th>
+                <th>Geçerlilik Tarihi</th>
+                <th>Tutar</th>
+                <th>Durum</th>
+                <th>İşlem</th>
+              </tr>
+            </thead>
+            <tbody id="modal-cari-quotes-list">
+              <!-- Dynamic historical client quotes -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Hidden Printable PDF Container (styled in style.css for html2pdf.js) -->
+  <div id="pdf-template-wrapper" style="display: none;">
+    <div class="pdf-container">
+      <!-- Top Header Row with gray background -->
+      <div class="pdf-header-container">
+        <!-- Logo in white box -->
+        <div class="pdf-logo-wrapper">
+          <div class="pdf-logo-box">
+            <img class="pdf-logo-img" src="logo.jpeg" alt="ERBATECH Logo"
+              onerror="this.src='https://placehold.co/200x75/dde1e6/0c3a60?text=ERBATECH'">
+          </div>
+        </div>
+        <!-- Right side decoration using item.png -->
+        <div class="pdf-header-accent-shape">
+          <img class="pdf-accent-img" src="item.png" alt="">
+        </div>
+      </div>
+
+      <!-- Addresses & Meta Section (no divider line - gray bg extends) -->
+      <div class="pdf-info-grid">
+        <div class="pdf-info-col">
+          <div class="pdf-section-title">Teklif Verilen Firma</div>
+          <div class="pdf-buyer-name" id="pdf-val-buyer-name">-</div>
+          <div class="pdf-buyer-details" id="pdf-val-buyer-details">
+            -
+          </div>
+        </div>
+        <div class="pdf-info-col">
+          <div class="pdf-section-title">Teklif Tarihi</div>
+          <div class="pdf-date-large" id="pdf-val-date">-</div>
+          <div class="pdf-meta-sub">
+            <p><strong>Teklif No:</strong> <span id="pdf-val-quote-number">-</span></p>
+            <p><strong>Geçerlilik T.:</strong> <span id="pdf-val-valid-until">-</span></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Table Section -->
+      <div class="pdf-table-wrapper">
+        <table class="pdf-invoice-table">
+          <thead>
+            <tr>
+              <th class="col-no">NO</th>
+              <th class="col-desc">ÜRÜN AÇIKLAMASI</th>
+              <th class="col-price">FİYAT</th>
+              <th class="col-qty">ADET</th>
+              <th class="col-total">TOPLAM</th>
+            </tr>
+          </thead>
+          <tbody id="pdf-val-items">
+            <!-- Dynamic rows -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Footer calculations & terms -->
+      <div class="pdf-summary-grid">
+        <div class="pdf-summary-left">
+          <div class="pdf-summary-title">ÖDEME BİLGİLERİ</div>
+          <div class="pdf-summary-text" id="pdf-val-bank-details">
+            -
+          </div>
+
+          <div class="pdf-summary-title" style="margin-top: 15px;">AÇIKLAMA</div>
+          <div class="pdf-summary-text" id="pdf-val-notes">
+            -
+          </div>
+        </div>
+        <div class="pdf-summary-right">
+          <table class="pdf-calculations-table">
+            <tr>
+              <td>ARA TOPLAM:</td>
+              <td id="pdf-val-subtotal">0,00 ₺</td>
+            </tr>
+            <tr id="pdf-row-discount" style="display: none;">
+              <td>İSKONTO TOPLAMI:</td>
+              <td id="pdf-val-discount">0,00 ₺</td>
+            </tr>
+            <tr>
+              <td>VERGİLER (<span id="pdf-val-vat-rate">20</span>%):</td>
+              <td id="pdf-val-vat">0,00 ₺</td>
+            </tr>
+          </table>
+
+          <!-- Split totals block: TOPLAM / Value -->
+          <div class="pdf-grand-total-block">
+            <div class="pdf-gt-label">TOPLAM</div>
+            <div class="pdf-gt-value" id="pdf-val-grand-total">0,00 ₺</div>
+          </div>
+
+          <!-- Signature line -->
+          <div class="pdf-signature-area">
+            <div class="pdf-sig-line"></div>
+            <div class="pdf-sig-name" id="pdf-val-seller-sig-name">ERBATECH</div>
+            <div class="pdf-sig-title" id="pdf-val-seller-sig-title">Teklif Veren Unvan</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer contact items -->
+      <div class="pdf-footer-bar">
+        <div class="pdf-footer-item">
+          <i class="fa-solid fa-phone"></i>
+          <span id="pdf-val-seller-phone">-</span>
+        </div>
+        <div class="pdf-footer-item">
+          <i class="fa-solid fa-globe"></i>
+          <span id="pdf-val-seller-website">-</span>
+        </div>
+        <div class="pdf-footer-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span id="pdf-val-seller-address">-</span>
+        </div>
+      </div>
+
+      <!-- Decorative bottom-left shape -->
+      <div class="pdf-bottom-left-decoration"></div>
+    </div>
+  </div>
+
+  <!-- Custom JavaScript File -->
+  <script src="app.js"></script>
+</body>
+
+</html>
